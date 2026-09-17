@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologías del Futuro | Explorador Interactivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primario: #6a1b9a;
+            --secundario: #8e24aa;
+            --acento: #ff6f00;
+            --acento2: #00bfa5;
+            --oscuro: #1a0b2e;
+            --oscuro2: #2d1b4e;
+            --claro: #f5f0ff;
+            --texto: #2a1a3e;
+            --sombra: rgba(106, 27, 154, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #4a148c 100%);
+            background-attachment: fixed;
+            color: var(--texto);
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: relative;
+            padding: 60px 20px 40px;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,111,0,0.15) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(0,191,165,0.15) 0%, transparent 50%);
+            animation: rotar 30s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        header > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ff6f00, #ffab00, #00bfa5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brillo 3s ease-in-out infinite alternate;
+            letter-spacing: 1px;
+        }
+
+        @keyframes brillo {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.3); }
+        }
+
+        header p {
+            font-size: 1.15em;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+
+        /* ===== ESTADÍSTICAS HEADER ===== */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 111, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item .num {
+            display: block;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffab00;
+        }
+
+        .stat-item .label {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        /* ===== BUSCADOR ===== */
+        .search-wrapper {
+            max-width: 650px;
+            margin: 25px auto 0;
+            position: relative;
+        }
+
+        #buscador {
+            width: 100%;
+            padding: 15px 50px 15px 25px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            font-size: 1em;
+            outline: none;
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        #buscador:focus {
+            border-color: var(--acento);
+            box-shadow: 0 8px 30px rgba(255, 111, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: var(--primario);
+        }
+
+        /* ===== NAVEGACIÓN CATEGORÍAS ===== */
+        nav.categorias {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 25px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        nav.categorias button {
+            padding: 10px 22px;
+            border: 2px solid rgba(255, 171, 0, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        nav.categorias button:hover {
+            background: rgba(255, 171, 0, 0.2);
+            border-color: var(--acento);
+            transform: translateY(-2px);
+        }
+
+        nav.categorias button.activo {
+            background: linear-gradient(135deg, var(--acento), #ff8f00);
+            color: #1a0b2e;
+            border-color: var(--acento);
+            box-shadow: 0 5px 20px rgba(255, 111, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* ===== CONTADOR ===== */
+        .contador {
+            text-align: center;
+            color: white;
+            padding: 10px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .contador span {
+            font-weight: bold;
+            color: #ffab00;
+            font-size: 1.2em;
+        }
+
+        /* ===== MAIN ===== */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .grid-tecnologias {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 25px;
+        }
+
+        /* ===== TARJETAS ===== */
+        .tarjeta {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: aparecer 0.6s ease backwards;
+            border: 2px solid transparent;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(106, 27, 154, 0.5);
+            border-color: var(--acento);
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* IMAGEN DE LA TARJETA */
+        .tarjeta-imagen {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--primario), var(--acento2));
+        }
+
+        .tarjeta-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            opacity: 0.85;
+        }
+
+        .tarjeta:hover .tarjeta-imagen img {
+            transform: scale(1.15);
+            opacity: 1;
+        }
+
+        .tarjeta-imagen::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 11, 46, 0.8), transparent 50%);
+        }
+
+        .tarjeta-icono {
+            position: absolute;
+            bottom: 12px;
+            left: 15px;
+            font-size: 2em;
+            z-index: 2;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+        }
+
+        .tarjeta-categoria-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 111, 0, 0.95);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+
+        /* HEADER TARJETA */
+        .tarjeta-header {
+            padding: 18px 20px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tarjeta-header h2 {
+            font-size: 1.15em;
+            color: var(--primario);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .flecha {
+            transition: transform 0.4s ease;
+            font-size: 1.2em;
+            color: var(--acento);
+            font-weight: bold;
+        }
+
+        .tarjeta.abierta .flecha {
+            transform: rotate(180deg);
+        }
+
+        /* CUERPO TARJETA */
+        .tarjeta-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease, padding 0.3s ease;
+            padding: 0 20px;
+            background: #fafafa;
+        }
+
+        .tarjeta.abierta .tarjeta-body {
+            max-height: 800px;
+            padding: 20px;
+        }
+
+        .tarjeta-body p {
+            margin-bottom: 12px;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        .tarjeta-body strong {
+            color: var(--primario);
+        }
+
+        /* BARRA DE PROGRESO MADUREZ */
+        .madurez {
+            margin: 15px 0;
+        }
+
+        .madurez-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .barra {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .barra-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--acento2), var(--acento));
+            transition: width 1s ease;
+            width: 0;
+        }
+
+        .tarjeta.abierta .barra-fill {
+            width: var(--nivel);
+        }
+
+        /* ETIQUETAS */
+        .etiquetas {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.72em;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 0.3px;
+        }
+
+        .badge.alto { background: linear-gradient(135deg, #d32f2f, #e53935); }
+        .badge.medio { background: linear-gradient(135deg, #f57c00, #ff9800); }
+        .badge.futuro { background: linear-gradient(135deg, #00897b, #00bfa5); }
+        .badge.info { background: linear-gradient(135deg, var(--primario), var(--secundario)); }
+
+        /* ===== SECCIÓN TIMELINE ===== */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            margin-top: 50px;
+            padding: 40px 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 171, 0, 0.2);
+        }
+
+        .timeline-section h2 {
+            color: #ffab00;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            text-shadow: 0 2px 10px rgba(255, 111, 0, 0.4);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--acento), var(--acento2), var(--primario));
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            border-left: 3px solid var(--acento);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(8px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 20px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--acento);
+            box-shadow: 0 0 15px var(--acento);
+            border: 3px solid var(--oscuro);
+        }
+
+        .timeline-item .year {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffab00;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item .desc {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95em;
+        }
+
+        /* ===== TABLA COMPARATIVA ===== */
+        .comparativa {
+            background: white;
+            margin-top: 50px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+        }
+
+        .comparativa h2 {
+            color: var(--primario);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--acento);
+            padding-left: 15px;
+            font-size: 1.5em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 0.92em;
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--primario), var(--secundario));
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: #f5f0ff;
+        }
+
+        /* ===== REFLEXIÓN ===== */
+        .reflexion {
+            background: linear-gradient(135deg, rgba(255, 111, 0, 0.15), rgba(0, 191, 165, 0.15));
+            backdrop-filter: blur(10px);
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 6px solid var(--acento);
+            color: white;
+        }
+
+        .reflexion h3 {
+            color: #ffab00;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+        }
+
+        .reflexion p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+        }
+
+        /* ===== BOTÓN ARRIBA ===== */
+        #btnArriba {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--acento), #ff8f00);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            box-shadow: 0 6px 25px rgba(255, 111, 0, 0.6);
+            display: none;
+            transition: all 0.3s ease;
+            z-index: 100;
+            font-weight: bold;
+        }
+
+        #btnArriba:hover {
+            transform: scale(1.15) translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255, 111, 0, 0.8);
+        }
+
+        /* ===== SIN RESULTADOS ===== */
+        .sin-resultados {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+            font-size: 1.2em;
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 50px;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(255, 171, 0, 0.3);
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            header h1 { font-size: 2em; }
+            header p { font-size: 1em; }
+            .grid-tecnologias { grid-template-columns: 1fr; }
+            .stats { gap: 15px; }
+            .stat-item { padding: 8px 15px; }
+            .stat-item .num { font-size: 1.4em; }
+            .comparativa { padding: 15px; }
+            .timeline { padding-left: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🚀 Tecnologías del Futuro</h1>
+        <p>Explora las innovaciones que redefinirán la humanidad en las próximas décadas. Haz clic en cada tarjeta para descubrir más.</p>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="num" id="totalTech">10</span>
+                <span class="label">Tecnologías</span>
+            </div>
+            <div class="stat-item">
+                <span class="num">2050</span>
+                <span class="label">Horizonte</span>
+            </div>
+            <div class="stat-item">
+                <span class="num">5</span>
+                <span class="label">Categorías</span>
+            </div>
+        </div>
+
+        <div class="search-wrapper">
+            <input type="text" id="buscador" placeholder="Buscar tecnología...">
+            <span class="search-icon">🔍</span>
+        </div>
+    </header>
+
+    <nav class="categorias">
+        <button class="activo" data-categoria="todas">🌐 Todas</button>
+        <button data-categoria="computacion">💻 Computación</button>
+        <button data-categoria="salud">🧬 Salud y Biotech</button>
+        <button data-categoria="energia">🔋 Energía</button>
+        <button data-categoria="espacio">🌌 Espacio</button>
+        <button data-categoria="materiales">🧪 Materiales</button>
+    </nav>
+
+    <div class="contador">
+        Mostrando <span id="contadorVisible">10</span> de <span id="contadorTotal">10</span> tecnologías
+    </div>
+
+    <main>
+        <div class="grid-tecnologias" id="grid">
+
+            <!-- TARJETA 1: AGI -->
+            <div class="tarjeta" data-categoria="computacion" data-nombre="inteligencia artificial general agi">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&auto=format&fit=crop" alt="Inteligencia Artificial">
+                    <span class="tarjeta-icono">🧠</span>
+                    <span class="tarjeta-categoria-tag">Computación</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Inteligencia Artificial General</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>La <strong>AGI</strong> busca sistemas con razonamiento, aprendizaje y adaptación similares a la inteligencia humana. A diferencia de la IA actual, podría resolver cualquier problema cognitivo.</p>
+                    <p><strong>🎯 Aplicaciones:</strong> Descubrimiento científico autónomo, medicina personalizada, resolución de problemas climáticos.</p>
+                    <p><strong>🏢 Actores clave:</strong> OpenAI, DeepMind, Anthropic, Meta AI.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>15%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 15%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge alto">Impacto Muy Alto</span>
+                        <span class="badge futuro">2030-2045</span>
+                        <span class="badge info">Ética crítica</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 2: CUÁNTICA -->
+            <div class="tarjeta" data-categoria="computacion" data-nombre="computacion cuantica qubits">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&auto=format&fit=crop" alt="Computación Cuántica">
+                    <span class="tarjeta-icono">⚛️</span>
+                    <span class="tarjeta-categoria-tag">Computación</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Computación Cuántica</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Usa <strong>qubits</strong> que pueden estar en superposición, resolviendo en segundos problemas que a las computadoras clásicas les tomarían milenios.</p>
+                    <p><strong>🎯 Aplicaciones:</strong> Simulación molecular, criptografía post-cuántica, optimización logística, finanzas.</p>
+                    <p><strong>🏢 Actores clave:</strong> IBM, Google, IonQ, Rigetti, startups chinas.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>35%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 35%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge alto">Impacto Alto</span>
+                        <span class="badge medio">2030</span>
+                        <span class="badge info">Rompe cifrado actual</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 3: CRISPR -->
+            <div class="tarjeta" data-categoria="salud" data-nombre="biotecnologia edicion genetica crispr adn">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1583912268183-054c0b6e5e5e?w=600&auto=format&fit=crop" alt="Edición Genética">
+                    <span class="tarjeta-icono">🧬</span>
+                    <span class="tarjeta-categoria-tag">Salud</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Edición Genética CRISPR</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>CRISPR-Cas9 permite <strong>cortar y pegar ADN</strong> con precisión quirúrgica, abriendo la puerta a curar enfermedades antes incurables.</p>
+                    <p><strong>🎯 Aplicaciones:</strong> Curar anemia falciforme, distrofia muscular, algunos cánceres; cultivos resistentes a sequías.</p>
+                    <p><strong>⚠️ Desafío:</strong> Regulación ética, edición de embriones humanos, acceso equitativo.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>55%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 55%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge alto">Impacto Alto</span>
+                        <span class="badge medio">2025-2035</span>
+                        <span class="badge info">Debate ético</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 4: IoT 6G -->
+            <div class="tarjeta" data-categoria="computacion" data-nombre="iot 6g internet de las cosas conectividad">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop" alt="IoT y 6G">
+                    <span class="tarjeta-icono">🌐</span>
+                    <span class="tarjeta-categoria-tag">Computación</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>IoT y Redes 6G</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Millones de dispositivos conectados generando datos en tiempo real. El <strong>6G</strong> promete latencia casi nula y velocidades de hasta 1 Tbps.</p>
+                    <p><strong>🎯 Aplicaciones:</strong> Ciudades inteligentes, telemedicina quirúrgica remota, vehículos autónomos, gemelos digitales.</p>
+                    <p><strong>📅 Previsión:</strong> Despliegue comercial hacia 2030.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>40%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 40%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge medio">Impacto Medio</span>
+                        <span class="badge futuro">2030</span>
+                        <span class="badge info">Base de la sociedad conectada</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 5: ROBÓTICA -->
+            <div class="tarjeta" data-categoria="computacion" data-nombre="robotica avanzada automatizacion cobots humanoides">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&auto=format&fit=crop" alt="Robótica Avanzada">
+                    <span class="tarjeta-icono">🤖</span>
+                    <span class="tarjeta-categoria-tag">Computación</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Robótica Avanzada</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Robots colaborativos (<strong>cobots</strong>), humanoides y drones autónomos transformarán múltiples industrias con IA integrada.</p>
+                    <p><strong>🎯 Sectores:</strong> Manufactura, agricultura de precisión, logística, cuidado de ancianos, cirugía asistida.</p>
+                    <p><strong>⚠️ Reto:</strong> Reemplazo laboral masivo y necesidad urgente de reconversión profesional.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>60%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 60%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge alto">Impacto Alto</span>
+                        <span class="badge medio">2025-2035</span>
+                        <span class="badge info">Transforma el empleo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 6: ENERGÍA -->
+            <div class="tarjeta" data-categoria="energia" data-nombre="energias limpias fusion nuclear baterias hidrogeno">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&auto=format&fit=crop" alt="Energías Limpias">
+                    <span class="tarjeta-icono">🔋</span>
+                    <span class="tarjeta-categoria-tag">Energía</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Energías Limpias y Fusión</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Fusión nuclear (ITER), baterías de estado sólido, hidrógeno verde y paneles de perovskita buscan <strong>descarbonizar el planeta</strong>.</p>
+                    <p><strong>🎯 Objetivo:</strong> Energía abundante, barata y sin emisiones para 2050.</p>
+                    <p><strong>📅 Hito esperado:</strong> Fusión comercial viable hacia 2045-2050.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>30%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 30%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge alto">Impacto Muy Alto</span>
+                        <span class="badge futuro">2040-2050</span>
+                        <span class="badge info">Salva el clima</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 7: NEUROTECNOLOGÍA -->
+            <div class="tarjeta" data-categoria="salud" data-nombre="neurotecnologia interfaz cerebro computadora neuralink bci">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&auto=format&fit=crop" alt="Neurotecnología">
+                    <span class="tarjeta-icono">🧠</span>
+                    <span class="tarjeta-categoria-tag">Salud</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Neurotecnología (BCI)</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Interfaces cerebro-computadora como las de <strong>Neuralink</strong> buscan restaurar funciones motoras y sensoriales, y eventualmente ampliar capacidades cognitivas.</p>
+                    <p><strong>🎯 Aplicaciones:</strong> Personas con parálisis, ceguera, sordera; control mental de dispositivos.</p>
+                    <p><strong>⚠️ Debate:</strong> Privacidad mental, desigualdad cognitiva, identidad humana.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>25%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 25%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge alto">Impacto Alto</span>
+                        <span class="badge medio">2030-2040</span>
+                        <span class="badge info">Redefine lo humano</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 8: ESPACIO -->
+            <div class="tarjeta" data-categoria="espacio" data-nombre="exploracion espacial comercial marte asteroides spacex">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop" alt="Exploración Espacial">
+                    <span class="tarjeta-icono">🌌</span>
+                    <span class="tarjeta-categoria-tag">Espacio</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Exploración Espacial Comercial</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Minería de asteroides, turismo espacial, colonización de Marte y satélites de bajo costo están <strong>democratizando el acceso al espacio</strong>.</p>
+                    <p><strong>🏢 Actores:</strong> SpaceX, Blue Origin, NASA, CNSA, Rocket Lab.</p>
+                    <p><strong>📅 Hito:</strong> Primeros humanos en Marte hacia 2035-2040.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>50%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 50%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge medio">Impacto Medio</span>
+                        <span class="badge futuro">2035-2040</span>
+                        <span class="badge info">Nueva frontera</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 9: MATERIALES -->
+            <div class="tarjeta" data-categoria="materiales" data-nombre="materiales programables metamateriales grafeno">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&auto=format&fit=crop" alt="Materiales Programables">
+                    <span class="tarjeta-icono">🧪</span>
+                    <span class="tarjeta-categoria-tag">Materiales</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Materiales Programables</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Materiales que cambian propiedades según estímulos externos: ventanas que regulan luz, tejidos que reparan heridas, <strong>metamateriales</strong> invisibles al sonido.</p>
+                    <p><strong>🎯 Aplicaciones:</strong> Construcción inteligente, medicina regenerativa, aeroespacial, camuflaje avanzado.</p>
+                    <p><strong>🔬 Estado:</strong> Investigación avanzada, primeros prototipos comerciales.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>35%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 35%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge medio">Impacto Medio</span>
+                        <span class="badge medio">2030</span>
+                        <span class="badge info">Ciencia de frontera</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA 10: CIBERSEGURIDAD -->
+            <div class="tarjeta" data-categoria="computacion" data-nombre="ciberseguridad cuantica blockchain criptografia">
+                <div class="tarjeta-imagen">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&auto=format&fit=crop" alt="Ciberseguridad">
+                    <span class="tarjeta-icono">🔐</span>
+                    <span class="tarjeta-categoria-tag">Computación</span>
+                </div>
+                <div class="tarjeta-header">
+                    <h2>Ciberseguridad Cuántica</h2>
+                    <span class="flecha">▼</span>
+                </div>
+                <div class="tarjeta-body">
+                    <p>Criptografía post-cuántica y blockchains más eficientes protegerán datos en un mundo hiperconectado.</p>
+                    <p><strong>⚠️ Urgencia:</strong> La computación cuántica podría romper el cifrado RSA actual en la próxima década.</p>
+                    <p><strong>🏢 Adopción:</strong> Gobiernos, bancos y ejércitos ya invierten miles de millones.</p>
+                    <div class="madurez">
+                        <div class="madurez-label"><span>Madurez tecnológica</span><span>45%</span></div>
+                        <div class="barra"><div class="barra-fill" style="--nivel: 45%;"></div></div>
+                    </div>
+                    <div class="etiquetas">
+                        <span class="badge alto">Impacto Alto</span>
+                        <span class="badge medio">2025-2035</span>
+                        <span class="badge info">Seguridad global</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="sin-resultados" id="sinResultados">😕 No se encontraron tecnologías con ese criterio. Prueba otra búsqueda.</p>
+
+        <!-- TIMELINE -->
+        <section class="timeline-section">
+            <h2>🕐 Línea de Tiempo Tecnológica</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">2025-2030</div>
+                    <div class="desc">Despliegue masivo de IA especializada, robots colaborativos en fábricas, primeras terapias CRISPR aprobadas globalmente.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2030-2035</div>
+                    <div class="desc">Redes 6G comerciales, computación cuántica útil para química y finanzas, primeras interfaces cerebro-computadora médicas.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2035-2040</div>
+                    <div class="desc">Primeros humanos en Marte, IA general emergente, materiales programables en construcción.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2040-2050</div>
+                    <div class="desc">Fusión nuclear comercial, colonias espaciales permanentes, neurotecnología avanzada para ampliar capacidades humanas.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABLA COMPARATIVA -->
+        <section class="comparativa">
+            <h2>📊 Comparativa de Madurez Tecnológica</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tecnología</th>
+                        <th>Madurez</th>
+                        <th>Impacto</th>
+                        <th>Horizonte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>🧠 Inteligencia Artificial General</td><td>15%</td><td>Muy Alto</td><td>2030-2045</td></tr>
+                    <tr><td>⚛️ Computación Cuántica</td><td>35%</td><td>Alto</td><td>2030</td></tr>
+                    <tr><td>🧬 Edición Genética CRISPR</td><td>55%</td><td>Alto</td><td>2025-2035</td></tr>
+                    <tr><td>🌐 IoT y 6G</td><td>40%</td><td>Medio</td><td>2030</td></tr>
+                    <tr><td>🤖 Robótica Avanzada</td><td>60%</td><td>Alto</td><td>2025-2035</td></tr>
+                    <tr><td>🔋 Fusión Nuclear</td><td>30%</td><td>Muy Alto</td><td>2040-2050</td></tr>
+                    <tr><td>🧠 Neurotecnología BCI</td><td>25%</td><td>Alto</td><td>2030-2040</td></tr>
+                    <tr><td>🌌 Exploración Espacial</td><td>50%</td><td>Medio</td><td>2035-2040</td></tr>
+                    <tr><td>🧪 Materiales Programables</td><td>35%</td><td>Medio</td><td>2030</td></tr>
+                    <tr><td>🔐 Ciberseguridad Cuántica</td><td>45%</td><td>Alto</td><td>2025-2035</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- REFLEXIÓN -->
+        <section class="reflexion">
+            <h3>💭 Reflexión Final</h3>
+            <p>El mayor desafío no será tecnológico, sino <strong>ético y social</strong>: garantizar que estos avances beneficien a toda la humanidad y no solo a unos pocos. La brecha digital, la privacidad, el empleo, la equidad y la identidad humana serán los verdaderos campos de batalla del futuro. La pregunta no es <em>qué podremos hacer</em>, sino <em>qué deberíamos hacer</em>.</p>
+        </section>
+
+    </main>
+
+    <button id="btnArriba" title="Volver arriba">↑</button>
+
+    <footer>
+        <p>🌐 Explorador Interactivo de Tecnologías del Futuro</p>
+        <p>HTML + CSS + JavaScript · Imágenes desde Unsplash</p>
+    </footer>
+
+    <script>
+        // ===== TARJETAS EXPANDIBLES =====
+        const tarjetas = document.querySelectorAll('.tarjeta');
+        tarjetas.forEach((tarjeta, i) => {
+            tarjeta.style.animationDelay = `${i * 0.08}s`;
+            tarjeta.querySelector('.tarjeta-header').addEventListener('click', () => {
+                tarjeta.classList.toggle('abierta');
+            });
+        });
+
+        // ===== BUSCADOR =====
+        const buscador = document.getElementById('buscador');
+        const sinResultados = document.getElementById('sinResultados');
+        const contadorVisible = document.getElementById('contadorVisible');
+        const contadorTotal = document.getElementById('contadorTotal');
+        const totalTech = document.getElementById('totalTech');
+
+        function filtrar() {
+            const texto = buscador.value.toLowerCase().trim();
+            const categoriaActiva = document.querySelector('nav.categorias button.activo').dataset.categoria;
+            let visibles = 0;
+
+            tarjetas.forEach(t => {
+                const nombre = t.dataset.nombre.toLowerCase();
+                const coincideTexto = nombre.includes(texto);
+                const coincideCategoria = categoriaActiva === 'todas' || t.dataset.categoria === categoriaActiva;
+
+                if (coincideTexto && coincideCategoria) {
+                    t.style.display = 'block';
+                    visibles++;
+                } else {
+                    t.style.display = 'none';
+                }
+            });
+
+            contadorVisible.textContent = visibles;
+            contadorTotal.textContent = tarjetas.length;
+            totalTech.textContent = tarjetas.length;
+            sinResultados.style.display = visibles === 0 ? 'block' : 'none';
+        }
+
+        buscador.addEventListener('input', filtrar);
+
+        // ===== FILTROS POR CATEGORÍA =====
+        const botonesCategoria = document.querySelectorAll('nav.categorias button');
+        botonesCategoria.forEach(btn => {
+            btn.addEventListener('click', () => {
+                botonesCategoria.forEach(b => b.classList.remove('activo'));
+                btn.classList.add('activo');
+                filtrar();
+            });
+        });
+
+        // ===== BOTÓN VOLVER ARRIBA =====
+        const btnArriba = document.getElementById('btnArriba');
+
+        window.addEventListener('scroll', () => {
+            btnArriba.style.display = window.scrollY > 400 ? 'block' : 'none';
+        });
+
+        btnArriba.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== INICIALIZAR =====
+        contadorTotal.textContent = tarjetas.length;
+        contadorVisible.textContent = tarjetas.length;
+        totalTech.textContent = tarjetas.length;
+    </script>
+
+</body>
+</html>
